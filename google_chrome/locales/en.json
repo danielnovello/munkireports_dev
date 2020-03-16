@@ -1,0 +1,14 @@
+{
+    "link": "google_chrome Link",
+    "listing": {
+        "title": "Google Chrome Listing",
+        "item1": "Version"
+    },
+    "report": {
+        "title": "Google Chrome Report"
+    },
+    "title": "Google Chrome Title",
+    "widget": {
+        "title": "Google Chrome Widget"
+    }
+}

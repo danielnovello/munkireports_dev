@@ -16,7 +16,7 @@ $this->view('listings/default',
 		],
 		[
 			"column" => "google_chrome.item1",
-			"i18n_header" => "google_chrome.listing.version",
+			"i18n_header" => "version",
 		],
 	]
 ]);

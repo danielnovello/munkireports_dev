@@ -1,0 +1,17 @@
+{
+    "link": "NoMAD Link",
+    "listing": {
+        "title": "NoMAD Listing",
+        "item1": "Active Directory Domain",
+        "item2": "Kerberos Realm",
+        "item3": "Local Password Sync?",
+        "item4": "Use Keychain?"
+    },
+    "report": {
+        "title": "NoMAD Report"
+    },
+    "title": "NoMAD Title",
+    "widget": {
+        "title": "NoMAD Widget"
+    }
+}

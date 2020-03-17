@@ -24,11 +24,11 @@ $this->view('listings/default',
 		],
 				[
 			"column" => "NoMAD.item3",
-			"i18n_header" => "NoMAD.listing.item2",
+			"i18n_header" => "NoMAD.listing.item3",
 		],
 				[
 			"column" => "NoMAD.item4",
-			"i18n_header" => "NoMAD.listing.item2",
+			"i18n_header" => "NoMAD.listing.item4",
 		],
 	]
 ]);

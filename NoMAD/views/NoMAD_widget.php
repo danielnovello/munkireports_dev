@@ -1,38 +1,64 @@
-<div class="col-lg-4 col-md-6">
-
-    <div class="panel panel-default" id="NoMAD-widget">
-
-        <div class="panel-heading" data-container="body" >
-
-            <h3 class="panel-title"><i class="fa fa-cog"></i> <span data-i18n="NoMAD.widget.title"></span></h3>
-
-        </div>
-
-        <div class="list-group scroll-box">
-            <span class="list-group-item" data-i18n="loading"></span>
-        </div>
-
-    </div><!-- /panel -->
-
 </div><!-- /col -->
-
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-bars"></i>
+					<span data-i18n="NoMAD.widget.title"></span>
+					<list-link data-url="/show/listing/NoMAD/NoMAD"></list-link>
+				</h3>
+			</div>
+				<div id="NoMAD-panel" class="panel-body text-center">
+					<svg id="NoMAD-plot" style="width:100%; height: 300px"></svg>
+				</div>
+	</div><!-- /panel -->
+</div><!-- /col -->
 <script>
-$(document).on('appUpdate', function(e, lang) {
+	$(document).on('appReady', function() {
+		function isnotzero(point)
+		{
+	    	return point.count > 0;
+		    }
+		    var url = appUrl + '/module/NoMAD/get_list'
+		    var chart;
+		    d3.json(url, function(err, data){
 
-    var box = $('#NoMAD-widget div.scroll-box');
+	    	    var height = 300;
+			    var width = 350;
 
-    $.getJSON( appUrl + '/module/NoMAD/get_list', function( data ) {
+			   	// Filter data
+		    	data = data.filter(isnotzero);
 
-        box.empty();
-        if(data.length){
-            $.each(data, function(i,d){
-                var badge = '<span class="badge pull-right">'+d.count+'</span>';
-                box.append('<a href="'+appUrl+'/show/listing/NoMAD/NoMAD/#'+d.item1+'" class="list-group-item">'+d.item1+badge+'</a>')
-            });
-        }
-        else{
-            box.append('<span class="list-group-item">'+i18n.t('no_data')+'</span>');
-        }
-    });
-});
+				nv.addGraph(function() {
+					var chart = nv.models.pieChart()
+					    .x(function(d) { return d.item1 })
+					    .y(function(d) { return d.count })
+					    .showLabels(false);
+
+					chart.title("" + d3.sum(data, function(d){
+						return d.count;
+					}));
+
+					chart.pie.donut(true);
+
+					d3.select("#NoMAD-plot")
+					    .datum(data)
+					    .transition().duration(1200)
+					    .style('height', height)
+					    .call(chart);
+
+					// Adjust title (count) depending on active slices
+					chart.dispatch.on('stateChange.legend', function (newState) {
+						var disabled = newState.disabled;
+						chart.title("" + d3.sum(data, function(d, i){
+							return d.count * !disabled[i];
+						}));
+			        });
+
+					return chart;
+
+			    });
+
+			});
+
+		});
 </script>
